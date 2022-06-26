@@ -1,0 +1,41 @@
+﻿  Main.cpp
+E:\VSTetris\Tetris\Tetris\Main.cpp(51,80): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+E:\VSTetris\Tetris\Tetris\Main.cpp(51,70): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+E:\VSTetris\Tetris\Tetris\Main.cpp(104,106): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+E:\VSTetris\Tetris\Tetris\Main.cpp(104,83): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+E:\VSTetris\Tetris\Tetris\Main.cpp(160,106): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+E:\VSTetris\Tetris\Tetris\Main.cpp(160,83): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+E:\VSTetris\Tetris\Tetris\Main.cpp(252,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(256,103): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(257,103): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(258,103): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(259,103): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(260,107): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(261,107): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(262,107): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+E:\VSTetris\Tetris\Tetris\Main.cpp(263,107): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Tetris.vcxproj -> E:\VSTetris\Tetris\x64\Debug\Tetris.exe
