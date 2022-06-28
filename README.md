@@ -1,1 +1,1 @@
-Download The Try the software file to interact with the software
+Download thw whole file to try the software. 
