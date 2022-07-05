@@ -1,1 +1,1 @@
-Download the whole named "TRY THE SOFTWARE" file to interact with the software. 
+Download the whole file named "TRY THE SOFTWARE" file to interact with the software. 
