@@ -6,17 +6,17 @@ open the applicaiton with .exe extention
 
 ### UI
 
-![input-image](https://imgur.com/3DYd3u5)
+![input-image](https://i.imgur.com/3DYd3u5.png)
 
 ### Maze option
 
-![output-image](https://imgur.com/3DYd3u5)
+![output-image](https://i.imgur.com/F1UNJxI.png)
 
 ### Dijsktra option
 
-![output-image](https://imgur.com/kK11h5S)
+![output-image](https://i.imgur.com/kK11h5S.png)
 
 ### A* option
 
-![output-image](https://imgur.com/yLixhNJ)
+![output-image](https://i.imgur.com/yLixhNJ.png)
 
