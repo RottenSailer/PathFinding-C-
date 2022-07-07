@@ -4,13 +4,19 @@ Download the whole file TRY THE SOFTWARE
 open the applicaiton with .exe extention
 ## Example
 
-```
-./filter -g images/courtyard.bmp out.bmp
-```
-### Input Image:
+### UI
 
-![input-image](https://i.imgur.com/MEN23pg.png)
+![input-image](https://imgur.com/3DYd3u5)
 
-### Output Image:
+### Maze option
 
-![output-image](https://i.imgur.com/EucEBDU.png)
+![output-image](https://imgur.com/3DYd3u5)
+
+### Dijsktra option
+
+![output-image](https://imgur.com/kK11h5S)
+
+### A* option
+
+![output-image](https://imgur.com/yLixhNJ)
+
