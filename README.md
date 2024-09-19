@@ -205,7 +205,7 @@ Ensure that the font used is free to distribute and embed. Open-source fonts lik
 
 ### Improvements I Am working on
 
-- **Concurrency**: Adding concurrent data structures, to enable stop the pathfinding mid-process, also make the pathfinding faster
+- **Concurrency**: Adding concurrent data structures, to enable stop the pathfinding mid-process
 
 ### Troubleshooting
 

@@ -23,7 +23,7 @@
 #include <mutex>
 #include <thread>
 
-#include "include/threadpool/jointhreads.h"
+#include "threadpool/jointhreads.h"
 #include "threadpool/threadqueue.h"
 #include "threadpool/workstealqueue.h"
 
