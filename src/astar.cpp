@@ -1,26 +1,10 @@
-#include "astar.h"
 #include <cmath>
 
-AStar::AStar(Graph& graph) : graph(graph), targetReached(false)
-{
-   // if (!font.loadFromMemory(arial_ttf, arial_ttf_len))
-   // {
-   //    std::cout << "Could not load font.." << std::endl;
-   // }
-   text.setFont(font);
-   text.setString("Solving A* Algorithm...");
-   text.setPosition(sf::Vector2f(5, 0));
-   text.setFillColor(sf::Color::Green);
-   text.setOutlineColor(sf::Color::Black);
-   text.setOutlineThickness(2);
-   text.setCharacterSize(25);
-}
+#include "algorithm/algorithm.h"
 
-void AStar::resetAlgorithms()
+AStar::AStar(Graph& graph) : Algorithm(graph)
 {
-   openList.clear();
-   openSet.clear();
-   targetReached = false;
+   text.setString("Solving A* Algorithm...");
 }
 
 double AStar::nodeDistance(Node* a, Node* b)
@@ -108,21 +92,6 @@ void AStar::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& target, 
                openList.push_back(neighbor);
             }
          }
-      }
-   }
-}
-
-void AStar::constructPath(Grid& map, sf::RenderWindow& window)
-{
-   Node* traverse = &graph.getNode(targetPos);
-   if (traverse != nullptr)
-   {
-      while (traverse->parent != nullptr)
-      {
-         map.setTileColor(traverse->location, sf::Color::Red);
-         traverse = traverse->parent;
-         map.draw(window);
-         window.display();
       }
    }
 }

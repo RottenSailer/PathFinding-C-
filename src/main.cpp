@@ -2,12 +2,11 @@
 #include <iostream>
 #include <string>
 
-#include "arial.h"
-#include "astar.h"
-#include "button.h"  // Include the Button class
-#include "dijkstra.h"
-#include "graph.h"
-#include "grid.h"
+#include "algorithm/algorithm.h"
+#include "embedding/arial.h"
+#include "graph/graph.h"
+#include "ui/button.h"  // Include the Button class
+#include "ui/grid.h"
 
 int main()
 {
@@ -48,7 +47,7 @@ int main()
    legendBackground.setFillColor(sf::Color(255, 255, 255, 200));
    legendBackground.setOutlineColor(sf::Color::Black);
    legendBackground.setOutlineThickness(2.f);
-   legendBackground.setPosition(legendX, 70.f); 
+   legendBackground.setPosition(legendX, 70.f);
 
    // Wall legend
    sf::RectangleShape wallLegend(sf::Vector2f(20.f, 20.f));

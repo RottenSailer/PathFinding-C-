@@ -1,12 +1,10 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include <node.h>
+#include <graph/node.h>
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-
-#include "node.h"
 
 class Grid
 {

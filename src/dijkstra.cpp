@@ -1,30 +1,8 @@
-#include "dijkstra.h"
-// #include "arial.h"
+#include "algorithm/algorithm.h"
 
-Dijkstra::Dijkstra(Graph& graph) : graph(graph), targetReached(false)
+Dijkstra::Dijkstra(Graph& graph) : Algorithm(graph)
 {
-   // if (!font.loadFromMemory(arial_ttf, arial_ttf_len))
-   // {
-   //    std::cerr << "Could not load font.." << std::endl;
-   // }
-   text.setFont(font);
    text.setString("Solving Dijkstra's Algorithm...");
-   text.setPosition(sf::Vector2f(5, 0));
-   text.setFillColor(sf::Color::Green);
-   text.setOutlineColor(sf::Color::Black);
-   text.setOutlineThickness(2);
-}
-
-void Dijkstra::resetAlgorithm()
-{
-   openList.clear();
-   openSet.clear();
-   targetReached = false;
-}
-
-double Dijkstra::nodeDistance(const Node* a, const Node* b)
-{
-   return 1.0;
 }
 
 void Dijkstra::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& target, Grid& map, sf::RenderWindow& window)
@@ -99,21 +77,6 @@ void Dijkstra::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& targe
                }
             }
          }
-      }
-   }
-}
-
-void Dijkstra::constructPath(Grid& map, sf::RenderWindow& window)
-{
-   Node* traverse = &graph.getNode(targetPos);
-   if (traverse != nullptr)
-   {
-      while (traverse->parent != nullptr)
-      {
-         map.setTileColor(traverse->location, sf::Color::Red);
-         traverse = traverse->parent;
-         map.draw(window);
-         window.display();
       }
    }
 }

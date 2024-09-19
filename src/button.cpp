@@ -1,4 +1,4 @@
-#include "button.h"
+#include "ui/button.h"
 
 Button::Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& backgroundColor, const sf::Color& textColor,
                const std::string& text, sf::Font& font)

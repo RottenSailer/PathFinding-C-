@@ -1035,12 +1035,11 @@ CMakeFiles/PathFinder.dir/src/main.cpp.o: \
   /opt/homebrew/include/SFML/Graphics/VertexBuffer.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iostream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/istream \
-  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/arial.h \
-  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/astar.h \
+  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/algorithm/algorithm.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/list \
   /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/unordered_set \
-  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/graph.h \
-  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/node.h \
-  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/grid.h \
-  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/button.h \
-  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/dijkstra.h
+  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/graph/graph.h \
+  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/graph/node.h \
+  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/ui/grid.h \
+  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/embedding/arial.h \
+  /Users/satwikshresth/Projects/Pathfinding_cpp/src/include/ui/button.h

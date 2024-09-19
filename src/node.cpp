@@ -1,4 +1,4 @@
-#include "node.h"
+#include "graph/node.h"
 
 Node::Node(int x, int y)
   : location(x, y),
