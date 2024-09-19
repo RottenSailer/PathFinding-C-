@@ -31,31 +31,31 @@ This project is a graphical visualization of pathfinding algorithms using SFML (
 
 ### Start Screen
 This is the initial interface with options to run different algorithms like A* and Dijkstra.
-![Start Screen](path_to_your_image/start_screen.png)
+![Start Screen](assets/screenshots/start_screen.png)
 
 ### Generated Maze
 The maze is created using the random maze generator before pathfinding begins.
-![Maze](path_to_your_image/maze.png)
+![Maze](assets/screenshots/maze.png)
 
 ### Dijkstra Algorithm
 Here, the Dijkstra algorithm is applied to find the shortest path in the maze.
-![Dijkstra Maze](path_to_your_image/dijkstra_maze.png)
+![Dijkstra Maze](assets/screenshots/dijkstra_maze.png)
 
 ### A* Algorithm
 The A* algorithm is applied to find a more optimal path.
-![A* Maze](path_to_your_image/aStarMaze.png)
+![A* Maze](assets/screenshots/aStarMaze.png)
 
 ### Tricky End - A* Algorithm
 This screenshot shows a more complex layout with the A* algorithm finding a path.
-![Tricky A*](path_to_your_image/trickyAstar.png)
+![Tricky A*](assets/screenshots/trickyAstar.png)
 
 ### Tricky End - Dijkstra Algorithm
 A more complex layout solved by the Dijkstra algorithm.
-![Tricky Dijkstra](path_to_your_image/tricky_end_dijstra.png)
+![Tricky Dijkstra](assets/screenshots/tricky_end_dijstra.png)
 
 ### Tricky Maze
 The generated tricky maze before running any algorithm.
-![Tricky Maze](path_to_your_image/tricky_maze.png)
+![Tricky Maze](assets/screenshots/tricky_maze.png)
 
 ## Getting Started
 
