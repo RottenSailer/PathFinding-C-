@@ -1,61 +1,42 @@
-#include "graph.h"
+#include "graph/graph.h"
 
 #include <cassert>
 
 Graph::Graph(int totalXTiles, int totalYTiles) : totalXTiles(totalXTiles), totalYTiles(totalYTiles)
 {
-   for (int i = 0; i < totalXTiles; ++i)
+   for (int x = 0; x < totalXTiles; ++x)
    {
-      for (int j = 0; j < totalYTiles; ++j)
+      for (int y = 0; y < totalYTiles; ++y)
       {
-         nodes.emplace_back(i, j);
+         nodes.emplace_back(x, y);
       }
    }
 
    assert(nodes.size() == totalXTiles * totalYTiles);
 
+   // Directions: N, NE, E, SE, S, SW, W, NW
+   const int dx[]          = {0, 1, 1, 1, 0, -1, -1, -1};
+   const int dy[]          = {-1, -1, 0, 1, 1, 1, 0, -1};
+   const int numDirections = 8;
+
+   // Set up neighbors
    for (int x = 0; x < totalXTiles; ++x)
    {
       for (int y = 0; y < totalYTiles; ++y)
       {
-         if (y > 0)
-         {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[x * totalXTiles + (y - 1)]);
-         }
+         int currentIndex = x * totalYTiles + y;  // Corrected indexing
 
-         if (y < totalXTiles - 1)
+         for (int dir = 0; dir < numDirections; ++dir)
          {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[x * totalXTiles + (y + 1)]);
-         }
+            int nx = x + dx[dir];
+            int ny = y + dy[dir];
 
-         if (x > 0)
-         {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[(x - 1) * totalXTiles + y]);
-         }
-
-         if (x < totalXTiles - 1)
-         {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[(x + 1) * totalXTiles + y]);
-         }
-
-         if (y > 0 && x > 0)
-         {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[(x - 1) * totalXTiles + (y - 1)]);
-         }
-
-         if (y < totalXTiles - 1 && x > 0)
-         {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[(x - 1) * totalXTiles + (y + 1)]);
-         }
-
-         if (y > 0 && x < totalXTiles - 1)
-         {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[(x + 1) * totalXTiles + (y - 1)]);
-         }
-
-         if (y < totalXTiles - 1 && x < totalXTiles - 1)
-         {
-            nodes[x * totalXTiles + y].neighbours.emplace_back(&nodes[(x + 1) * totalXTiles + (y + 1)]);
+            // Check if neighbor is within bounds
+            if (nx >= 0 && nx < totalXTiles && ny >= 0 && ny < totalYTiles)
+            {
+               int neighborIndex = nx * totalYTiles + ny;
+               nodes[currentIndex].neighbours.emplace_back(&nodes[neighborIndex]);
+            }
          }
       }
    }
@@ -92,10 +73,10 @@ void Graph::resetGraph(bool rememberObstacle)
 {
    for (auto& node : nodes)
    {
-      node.fCost      = std::numeric_limits<double>::infinity();
-      node.gCost      = std::numeric_limits<double>::infinity();
-      node.hCost      = std::numeric_limits<double>::infinity();
-      node.visited    = false;
-      node.parent     = nullptr;
+      node.fCost   = std::numeric_limits<double>::infinity();
+      node.gCost   = std::numeric_limits<double>::infinity();
+      node.hCost   = std::numeric_limits<double>::infinity();
+      node.visited = false;
+      node.parent  = nullptr;
    }
 }

@@ -1,4 +1,4 @@
-#include "grid.h"
+#include "ui/grid.h"
 
 Grid::Grid(int stepSize, int mapSize, int margin)
   : stepSize(stepSize),

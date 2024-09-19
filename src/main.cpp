@@ -119,7 +119,7 @@ int main()
                   map.gridReset();
                   graph.resetGraph();
                   dijkstra.resetAlgorithm();
-                  astar.resetAlgorithms();
+                  astar.resetAlgorithm();
                }
                else if (dijkstraButton.isMouseOver(window))
                {
@@ -133,7 +133,7 @@ int main()
                {
                   graph.resetGraph(true);
                   map.colorReset();
-                  astar.resetAlgorithms();
+                  astar.resetAlgorithm();
                   astar.solveAlgorithm(map.getStart(), map.getEnd(), map, window);
                   astar.constructPath(map, window);
                }
