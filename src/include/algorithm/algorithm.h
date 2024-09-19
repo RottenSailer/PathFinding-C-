@@ -74,18 +74,20 @@ private:
    Grid&             grid;
    sf::RenderWindow& window;
 
-   void                     initializeUnionFind();
-   int                      findSet(int cell);
-   void                     unionSet(int cell1, int cell2);
-   const std::vector<Edge>& getRemovedEdges() const;
-   std::pair<int, int>      getCellCoordinates(int index) const;
-   int                      getCellIndex(int row, int col) const;
-
+   void initializeUnionFind();
+   int  findSet(int cell);
+   void unionSet(int cell1, int cell2);
+   int  getCellIndex(int row, int col) const;
+   int  getNeighbourDir(int cell1, int cell2);
+   void connectCells(int cell1, int cell2, std::vector<std::vector<int>>& spanning_tree);
    void generateAllEdges();
    void shuffleEdges();
    void removeWall(int x1, int y1, int x2, int y2);
    void addEdge(int x1, int y1, int x2, int y2);
    void resetMaze();
+
+   const std::vector<Edge>& getRemovedEdges() const;
+   std::pair<int, int>      getCellCoordinates(int index) const;
 
 public:
    Kruskal(Graph& graph, Grid& grid, sf::RenderWindow& window);
