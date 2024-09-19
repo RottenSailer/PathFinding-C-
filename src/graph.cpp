@@ -14,21 +14,23 @@ Graph::Graph(int totalXTiles, int totalYTiles) : totalXTiles(totalXTiles), total
 
    assert(nodes.size() == totalXTiles * totalYTiles);
 
-   const int dx[]          = {0, 1, 0, -1};
-   const int dy[]          = {-1, 0, 1, 0};
-   const int numDirections = 4;
+   const int dx[]          = {0, 1, 1, 1, 0, -1, -1, -1};
+   const int dy[]          = {-1, -1, 0, 1, 1, 1, 0, -1};
+   const int numDirections = 8;
 
+   // Set up neighbors
    for (int x = 0; x < totalXTiles; ++x)
    {
       for (int y = 0; y < totalYTiles; ++y)
       {
-         int currentIndex = x * totalYTiles + y;
+         int currentIndex = x * totalYTiles + y;  // Corrected indexing
 
          for (int dir = 0; dir < numDirections; ++dir)
          {
             int nx = x + dx[dir];
             int ny = y + dy[dir];
 
+            // Check if neighbor is within bounds
             if (nx >= 0 && nx < totalXTiles && ny >= 0 && ny < totalYTiles)
             {
                int neighborIndex = nx * totalYTiles + ny;
