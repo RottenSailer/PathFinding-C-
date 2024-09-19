@@ -1,20 +1,20 @@
 #include "algorithm/algorithm.h"
 
-Dijkstra::Dijkstra(Graph& graph) : Algorithm(graph)
+Dijkstra::Dijkstra(Graph& graph, Grid& grid, sf::RenderWindow& window) : PathFindingAlgorithm(graph,grid,window)
 {
    text.setString("Solving Dijkstra's Algorithm...");
 }
 
-void Dijkstra::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& target, Grid& map, sf::RenderWindow& window)
+void Dijkstra::findPath(const sf::Vector2i& src, const sf::Vector2i& target)
 {
-   srcPos    = map.getStart();
-   targetPos = map.getEnd();
+   srcPos    = grid.getStart();
+   targetPos = grid.getEnd();
 
    for (int i = 0; i < 50; i++)
    {
       for (int j = 0; j < 50; j++)
       {
-         if (map.isWall(i, j))
+         if (grid.isWall(i, j))
          {
             graph.getNode(sf::Vector2i(i, j)).isObstacle = true;
          }
@@ -39,9 +39,9 @@ void Dijkstra::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& targe
       openSet.erase(currentNode);
       currentNode->visited = true;
 
-      if (!map.isWall(currentNode))
+      if (!grid.isWall(currentNode))
       {
-         map.colourVisitedTile(currentNode->location);
+         grid.colourVisitedTile(currentNode->location);
       }
 
       if (currentNode->location == targetPos)
@@ -49,7 +49,7 @@ void Dijkstra::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& targe
          targetReached = true;
       }
 
-      map.draw(window);
+      grid.draw(window);
       window.display();
 
       for (auto neighbor : currentNode->neighbours)
@@ -71,9 +71,9 @@ void Dijkstra::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& targe
                openSet.insert(neighbor);
                openList.push_back(neighbor);
 
-               if (!map.isWall(neighbor->location.x, neighbor->location.y))
+               if (!grid.isWall(neighbor->location.x, neighbor->location.y))
                {
-                  map.colourVisitingTile(neighbor->location);
+                  grid.colourVisitingTile(neighbor->location);
                }
             }
          }

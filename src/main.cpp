@@ -7,6 +7,7 @@
 #include "graph/graph.h"
 #include "ui/button.h"  // Include the Button class
 #include "ui/grid.h"
+#include "ui/legendbuilder.h"
 
 int main()
 {
@@ -16,83 +17,38 @@ int main()
       std::cerr << "Could not load font.." << std::endl;
       return -1;
    }
-
-   int windowSize = 900;
-   int margin     = 50;
-   int mapSize    = 50;
-   int stepSize   = (windowSize - margin * 2) / mapSize;
+   int       windowSize = 900;
+   int       margin     = 50;
+   int       mapSize    = 50;
+   int       stepSize   = (windowSize - margin * 2) / mapSize;
+   sf::Color buttonColor(200, 200, 200);
+   Grid      grid(stepSize, mapSize, margin);
+   Graph     graph(mapSize, mapSize);
 
    sf::RenderWindow window(sf::VideoMode(windowSize, windowSize), "PathFinder", sf::Style::Close);
+   Dijkstra         dijkstra(graph, grid, window);
+   AStar            astar(graph, grid, window);
 
-   Grid     map(stepSize, mapSize, margin);
-   Graph    graph(mapSize, mapSize);
-   Dijkstra dijkstra(graph);
-   AStar    astar(graph);
+   float gap    = 50.f;
+   float border = 65.f;
 
-   // Create buttons
-   Button clearButton({100.f, 40.f}, {50.f, 6.f}, sf::Color(200, 200, 200), sf::Color::Black, "CLEAR", font);
-   Button mazeButton({100.f, 40.f}, {230.f, 6.f}, sf::Color(200, 200, 200), sf::Color::Black, "MAZE", font);
-   Button resetButton({100.f, 40.f}, {410.f, 6.f}, sf::Color(200, 200, 200), sf::Color::Black, "RESET", font);
-   Button dijkstraButton({120.f, 40.f}, {590.f, 6.f}, sf::Color(200, 200, 200), sf::Color::Black, "DIJKSTRA", font);
-   Button astarButton({60.f, 40.f}, {790.f, 6.f}, sf::Color(200, 200, 200), sf::Color::Black, "A*", font);
+   ButtonFactory buttonFactory(buttonColor, sf::Color::Black, font);
+   Button*       clearButton    = buttonFactory.createButton({(border * 1) + (gap * 0 * 2), 6.f}, "CLEAR");     // 50
+   Button*       mazeButton     = buttonFactory.createButton({(border * 2) + (gap * 1 * 2), 6.f}, "MAZE");      // 70
+   Button*       resetButton    = buttonFactory.createButton({(border * 3) + (gap * 2 * 2), 6.f}, "RESET");     // 90
+   Button*       dijkstraButton = buttonFactory.createButton({(border * 4) + (gap * 3 * 2), 6.f}, "DIJKSTRA");  // 80
+   Button*       astarButton    = buttonFactory.createButton({(border * 5) + (gap * 4 * 2), 6.f}, "A*");        // 100
 
-   // Legend setup
-   float    legendX = windowSize - 200.f;
-   sf::Text legendTitle("Legend:", font, 16);
-   legendTitle.setFillColor(sf::Color::Black);
-   legendTitle.setPosition(legendX + 10.f, 80.f);
-
-   // Legend background rectangle
-   sf::RectangleShape legendBackground(sf::Vector2f(180.f, 200.f));
-   legendBackground.setFillColor(sf::Color(255, 255, 255, 200));
-   legendBackground.setOutlineColor(sf::Color::Black);
-   legendBackground.setOutlineThickness(2.f);
-   legendBackground.setPosition(legendX, 70.f);
-
-   // Wall legend
-   sf::RectangleShape wallLegend(sf::Vector2f(20.f, 20.f));
-   wallLegend.setFillColor(map.wallColour);
-   wallLegend.setPosition(windowSize - 190.f, 110.f);
-
-   sf::Text wallText("Wall", font, 14);
-   wallText.setFillColor(sf::Color::Black);
-   wallText.setPosition(windowSize - 160.f, 110.f);
-
-   // Start legend
-   sf::RectangleShape startLegend(sf::Vector2f(20.f, 20.f));
-   startLegend.setFillColor(map.startColour);
-   startLegend.setPosition(windowSize - 190.f, 140.f);
-
-   sf::Text startText("Start", font, 14);
-   startText.setFillColor(sf::Color::Black);
-   startText.setPosition(windowSize - 160.f, 140.f);
-
-   // End legend
-   sf::RectangleShape endLegend(sf::Vector2f(20.f, 20.f));
-   endLegend.setFillColor(map.endColour);
-   endLegend.setPosition(windowSize - 190.f, 170.f);
-
-   sf::Text endText("End", font, 14);
-   endText.setFillColor(sf::Color::Black);
-   endText.setPosition(windowSize - 160.f, 170.f);
-
-   // Visited tile legend
-   sf::RectangleShape visitedLegend(sf::Vector2f(20.f, 20.f));
-   visitedLegend.setFillColor(map.visitedTileColour);
-   visitedLegend.setPosition(windowSize - 190.f, 200.f);
-
-   sf::Text visitedText("Visited", font, 14);
-   visitedText.setFillColor(sf::Color::Black);
-   visitedText.setPosition(windowSize - 160.f, 200.f);
-
-   // Path legend
-   sf::RectangleShape pathLegend(sf::Vector2f(20.f, 20.f));
-   pathLegend.setFillColor(map.shortestPathColour);
-   pathLegend.setPosition(windowSize - 190.f, 230.f);
-
-   sf::Text pathText("Path", font, 14);
-   pathText.setFillColor(sf::Color::Black);
-   pathText.setPosition(windowSize - 160.f, 230.f);
+   LegendBuilder legend(windowSize - 200.f, 80.f, font);
+   legend.addItem(grid.wallColour, "Wall");
+   legend.addItem(grid.startColour, "Start");
+   legend.addItem(grid.endColour, "End");
+   legend.addItem(grid.visitedTileColour, "Visited");
+   legend.addItem(grid.shortestPathColour, "Path");
+   
+   
+   bool isMovingStart = false;
+   bool isMovingEnd   = false;
 
    while (window.isOpen())
    {
@@ -106,90 +62,60 @@ int main()
          {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
-               if (clearButton.isMouseOver(window))
+               if (clearButton->isMouseOver(window))
                {
-                  map.removeWalls();
+                  grid.removeWalls();
                }
-               else if (mazeButton.isMouseOver(window))
+               else if (mazeButton->isMouseOver(window))
                {
-                  map.generateMaze(window);
+                  grid.generateMaze(window);
                }
-               else if (resetButton.isMouseOver(window))
+               else if (resetButton->isMouseOver(window))
                {
-                  map.gridReset();
+                  grid.gridReset();
                   graph.resetGraph();
                   dijkstra.resetAlgorithm();
                   astar.resetAlgorithm();
                }
-               else if (dijkstraButton.isMouseOver(window))
+               else if (dijkstraButton->isMouseOver(window))
                {
                   graph.resetGraph(true);
-                  map.colorReset();
+                  grid.colorReset();
                   dijkstra.resetAlgorithm();
-                  dijkstra.solveAlgorithm(map.getStart(), map.getEnd(), map, window);
-                  dijkstra.constructPath(map, window);
+                  dijkstra.findPath(grid.getStart(), grid.getEnd());
+                  dijkstra.constructPath(grid, window);
                }
-               else if (astarButton.isMouseOver(window))
+               else if (astarButton->isMouseOver(window))
                {
                   graph.resetGraph(true);
-                  map.colorReset();
+                  grid.colorReset();
                   astar.resetAlgorithm();
-                  astar.solveAlgorithm(map.getStart(), map.getEnd(), map, window);
-                  astar.constructPath(map, window);
+                  astar.findPath(grid.getStart(), grid.getEnd());
+                  astar.constructPath(grid, window);
                }
                else
                {
+                  // Handle initial wall placement or moving start/end positions
                   sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                   int          mx       = mousePos.x - margin;
                   int          my       = mousePos.y - margin;
 
-                  // Check if mouse is on the grid
                   if (mx >= 0 && my >= 0 && mx < windowSize - 2 * margin && my < windowSize - 2 * margin)
                   {
                      int x = mx / stepSize;
                      int y = my / stepSize;
 
-                     if (map.checkStart(x, y))
+                     if (grid.checkStart(x, y))
                      {
-                        // Move start position
-                        while (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                        {
-                           sf::Vector2i newMousePos = sf::Mouse::getPosition(window);
-                           int          newMx       = newMousePos.x - margin;
-                           int          newMy       = newMousePos.y - margin;
-
-                           if (newMx >= 0 && newMy >= 0 && newMx < windowSize - 2 * margin && newMy < windowSize - 2 * margin)
-                           {
-                              int newX = newMx / stepSize;
-                              int newY = newMy / stepSize;
-                              map.updateStart(newX, newY);
-                           }
-                           map.draw(window);
-                           window.display();
-                        }
+                        isMovingStart = true;
                      }
-                     else if (map.checkEnd(x, y))
+                     else if (grid.checkEnd(x, y))
                      {
-                        // Move end position
-                        while (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                        {
-                           sf::Vector2i newMousePos = sf::Mouse::getPosition(window);
-                           int          newMx       = newMousePos.x - margin;
-                           int          newMy       = newMousePos.y - margin;
-
-                           if (newMx >= 0 && newMy >= 0 && newMx < windowSize - 2 * margin && newMy < windowSize - 2 * margin)
-                           {
-                              int newX = newMx / stepSize;
-                              int newY = newMy / stepSize;
-                              map.updateEnd(newX, newY);
-                           }
-                           map.draw(window);
-                           window.display();
-                        }
+                        isMovingEnd = true;
                      }
                      else
                      {
-                        map.putWall(x, y);
+                        grid.putWall(x, y);
                      }
                   }
                }
@@ -205,46 +131,61 @@ int main()
                {
                   int x = mx / stepSize;
                   int y = my / stepSize;
-                  map.removeWall(x, y);
+                  grid.removeWall(x, y);
+               }
+            }
+         }
+         else if (event.type == sf::Event::MouseButtonReleased)
+         {
+            if (event.mouseButton.button == sf::Mouse::Left)
+            {
+               isMovingStart = false;
+               isMovingEnd   = false;
+            }
+         }
+         else if (event.type == sf::Event::MouseMoved)
+         {
+            sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+            int          mx       = mousePos.x - margin;
+            int          my       = mousePos.y - margin;
+
+            if (mx >= 0 && my >= 0 && mx < windowSize - 2 * margin && my < windowSize - 2 * margin)
+            {
+               int x = mx / stepSize;
+               int y = my / stepSize;
+
+               if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+               {
+                  if (isMovingStart)
+                  {
+                     grid.updateStart(x, y);
+                  }
+                  else if (isMovingEnd)
+                  {
+                     grid.updateEnd(x, y);
+                  }
+                  else
+                  {
+                     if (!grid.checkStart(x, y) && !grid.checkEnd(x, y))
+                     {
+                        grid.putWall(x, y);
+                     }
+                  }
+               }
+               else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+               {
+                  grid.removeWall(x, y);
                }
             }
          }
       }
 
-      // Update buttons
-      clearButton.update(window);
-      mazeButton.update(window);
-      resetButton.update(window);
-      dijkstraButton.update(window);
-      astarButton.update(window);
-
-      // Drawing
       window.clear(sf::Color::White);
-      map.draw(window);
+      grid.draw(window);
+      buttonFactory.updateAll(window);
+      buttonFactory.drawAll(window);
 
-      // Draw buttons
-      clearButton.draw(window);
-      mazeButton.draw(window);
-      resetButton.draw(window);
-      dijkstraButton.draw(window);
-      astarButton.draw(window);
-
-      // Draw legend background first
-      window.draw(legendBackground);
-
-      // Draw legend
-      window.draw(legendTitle);
-      window.draw(wallLegend);
-      window.draw(wallText);
-      window.draw(startLegend);
-      window.draw(startText);
-      window.draw(endLegend);
-      window.draw(endText);
-      window.draw(visitedLegend);
-      window.draw(visitedText);
-      window.draw(pathLegend);
-      window.draw(pathText);
-
+      legend.draw(window);
       window.display();
    }
 

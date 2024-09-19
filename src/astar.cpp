@@ -2,7 +2,7 @@
 
 #include "algorithm/algorithm.h"
 
-AStar::AStar(Graph& graph) : Algorithm(graph)
+AStar::AStar(Graph& graph, Grid& grid, sf::RenderWindow& window) : PathFindingAlgorithm(graph, grid, window)
 {
    text.setString("Solving A* Algorithm...");
 }
@@ -14,16 +14,16 @@ double AStar::nodeDistance(Node* a, Node* b)
    return std::sqrt(dx * dx + dy * dy);
 }
 
-void AStar::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& target, Grid& map, sf::RenderWindow& window)
+void AStar::findPath(const sf::Vector2i& src, const sf::Vector2i& target)
 {
-   srcPos    = map.getStart();
-   targetPos = map.getEnd();
+   srcPos    = grid.getStart();
+   targetPos = grid.getEnd();
 
-   for (int x = 0; x < map.getMapSize(); ++x)
+   for (int x = 0; x < grid.getMapSize(); ++x)
    {
-      for (int y = 0; y < map.getMapSize(); ++y)
+      for (int y = 0; y < grid.getMapSize(); ++y)
       {
-         if (map.isWall(x, y))
+         if (grid.isWall(x, y))
          {
             graph.getNode(sf::Vector2i(x, y)).isObstacle = true;
          }
@@ -51,9 +51,9 @@ void AStar::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& target, 
 
       currentNode->visited = true;
 
-      if (!map.isWall(currentNode->location.x, currentNode->location.y))
+      if (!grid.isWall(currentNode->location.x, currentNode->location.y))
       {
-         map.colourVisitedTile(currentNode->location);
+         grid.colourVisitedTile(currentNode->location);
       }
 
       if (currentNode->location == targetPos)
@@ -62,7 +62,7 @@ void AStar::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& target, 
          break;
       }
 
-      map.draw(window);
+      grid.draw(window);
       window.display();
 
       for (auto neighbor : currentNode->neighbours)
@@ -83,9 +83,9 @@ void AStar::solveAlgorithm(const sf::Vector2i& src, const sf::Vector2i& target, 
 
             if (openSet.find(neighbor) == openSet.end())
             {
-               if (!map.isWall(neighbor->location.x, neighbor->location.y))
+               if (!grid.isWall(neighbor->location.x, neighbor->location.y))
                {
-                  map.colourVisitingTile(neighbor->location);
+                  grid.colourVisitingTile(neighbor->location);
                }
 
                openSet.insert(neighbor);
