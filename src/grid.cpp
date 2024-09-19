@@ -76,8 +76,8 @@ void Grid::colorReset()
    {
       for (int j = 0; j < mapSize; ++j)
       {
-         auto index = i * mapSize + j;
-         auto* rect = rectangles[index];
+         auto  index = i * mapSize + j;
+         auto* rect  = rectangles[index];
 
          if (i == start.x && j == start.y)
          {
@@ -129,15 +129,21 @@ bool Grid::isWall(Node* node) const
 bool Grid::isWall(int x, int y) const
 {
    if (x < 0 || x >= mapSize || y < 0 || y >= mapSize)
+   {
       return true;
+   }
    return occupants[x * mapSize + y] == 0;
 }
 
 void Grid::putWall(int x, int y)
 {
    if (x < 0 || x >= mapSize || y < 0 || y >= mapSize)
+   {
       return;
-   int index        = x * mapSize + y;
+   }
+
+   int index = x * mapSize + y;
+
    occupants[index] = 0;
    setTileColor(index, wallColour);
 }
@@ -262,24 +268,24 @@ void Grid::addPath(std::vector<sf::Vector2i>& path, sf::RenderWindow& window)
    }
 }
 
-void Grid::generateMaze(sf::RenderWindow& window)
-{
-   initMap();
-
-   for (int i = 0; i < mapSize; ++i)
-   {
-      for (int j = 0; j < mapSize; ++j)
-      {
-         int index    = i * mapSize + j;
-         int r        = rand() % 4;
-         int safeArea = 2;
-         if (r == 0 && !((i < safeArea && j < safeArea) || (i > mapSize - safeArea && j > mapSize - safeArea)))
-         {
-            occupants[index] = 0;
-            setTileColor(index, wallColour);
-            draw(window);
-            window.display();
-         }
-      }
-   }
-}
+// void Grid::generateMaze(sf::RenderWindow& window)
+// {
+//    initMap();
+//
+//    for (int i = 0; i < mapSize; ++i)
+//    {
+//       for (int j = 0; j < mapSize; ++j)
+//       {
+//          int index    = i * mapSize + j;
+//          int r        = rand() % 4;
+//          int safeArea = 2;
+//          if (r == 0 && !((i < safeArea && j < safeArea) || (i > mapSize - safeArea && j > mapSize - safeArea)))
+//          {
+//             occupants[index] = 0;
+//             setTileColor(index, wallColour);
+//             draw(window);
+//             window.display();
+//          }
+//       }
+//    }
+// }

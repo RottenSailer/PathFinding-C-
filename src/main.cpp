@@ -28,6 +28,7 @@ int main()
    sf::RenderWindow window(sf::VideoMode(windowSize, windowSize), "PathFinder", sf::Style::Close);
    Dijkstra         dijkstra(graph, grid, window);
    AStar            astar(graph, grid, window);
+   Kruskal          kruskal(graph, grid, window);
 
    float gap    = 50.f;
    float border = 65.f;
@@ -45,8 +46,7 @@ int main()
    legend.addItem(grid.endColour, "End");
    legend.addItem(grid.visitedTileColour, "Visited");
    legend.addItem(grid.shortestPathColour, "Path");
-   
-   
+
    bool isMovingStart = false;
    bool isMovingEnd   = false;
 
@@ -68,7 +68,7 @@ int main()
                }
                else if (mazeButton->isMouseOver(window))
                {
-                  grid.generateMaze(window);
+                  kruskal.generateMaze();
                }
                else if (resetButton->isMouseOver(window))
                {

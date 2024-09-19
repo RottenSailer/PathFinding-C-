@@ -18,8 +18,8 @@ public:
    void         addPath(std::vector<sf::Vector2i>& path, sf::RenderWindow& window);
    void         gridReset();
    void         draw(sf::RenderWindow& window);
-   void         generateMaze(Grid& map, sf::RenderWindow& window);
-   void         generateMaze(sf::RenderWindow& window);
+   // void         generateMaze(Grid& map, sf::RenderWindow& window);
+   // void         generateMaze(sf::RenderWindow& window);
    void         putWall(int x, int y);
    void         removeWall(int x, int y);
    void         removeWalls();

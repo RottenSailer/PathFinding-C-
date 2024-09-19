@@ -54,17 +54,43 @@ public:
 class Kruskal
 {
 private:
-   Graph& graph;
-   void   generateMaze(Grid& map, sf::RenderWindow& window);
    struct Edge
    {
-      int x1, x2;
-      int y1, y2;
+      int from;
+      int to;
+
+      Edge(int f, int t) : from(f), to(t)
+      {}
    };
 
-public:
-   Kruskal(Graph& graph);
+   int width;
+   int height;
+   int totalCells;
+
+   std::vector<Edge> edges;
+   std::vector<int>  parent;
+
+   Graph&            graph;
+   Grid&             grid;
+   sf::RenderWindow& window;
+
+   void                     initializeUnionFind();
+   int                      findSet(int cell);
+   void                     unionSet(int cell1, int cell2);
+   const std::vector<Edge>& getRemovedEdges() const;
+   std::pair<int, int>      getCellCoordinates(int index) const;
+   int                      getCellIndex(int row, int col) const;
+
+   void generateAllEdges();
+   void shuffleEdges();
+   void removeWall(int x1, int y1, int x2, int y2);
+   void addEdge(int x1, int y1, int x2, int y2);
    void resetMaze();
+
+public:
+   Kruskal(Graph& graph, Grid& grid, sf::RenderWindow& window);
+
+   void generateMaze();
 };
 
 #endif  // ALGO_H
