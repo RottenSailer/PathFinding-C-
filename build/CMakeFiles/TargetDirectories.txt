@@ -1,3 +1,0 @@
-/Users/satwikshresth/Projects/Pathfinding_cpp/build/CMakeFiles/PathFinder.dir
-/Users/satwikshresth/Projects/Pathfinding_cpp/build/CMakeFiles/edit_cache.dir
-/Users/satwikshresth/Projects/Pathfinding_cpp/build/CMakeFiles/rebuild_cache.dir
