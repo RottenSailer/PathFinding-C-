@@ -35,10 +35,10 @@ A quick demo of kruskal maze generation and pathfinding using AStar and Dijkstra
 
 ### Demo with moving the goal using Astar
 Moving the endPosition
-![Demo-end-Astar](./assets/screenshots/maze_end_astar.gif)
+![Demo-end-Astar](assets/screenshots/maze_end_astar.gif)
 
 ### Start Screen
-This is the initial interface with options to run different algorithms like A* and Dijkstra.
+This is the initial interface with options to run different algorithms like A* and Dijkstra
 ![Start Screen](assets/screenshots/start_screen.png)
 
 ### Generated Maze
