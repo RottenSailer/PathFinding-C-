@@ -30,8 +30,11 @@ This project is a graphical visualization of pathfinding algorithms using SFML (
 ## Pathfinding Visualizer Screenshots
 
 ### Demo
-A quick demo of kruskal maze generation and pathfinding
-![Demo](assets/screenshots/movie.mp4)
+A quick demo of kruskal maze generation and pathfinding using AStar and Dijkstra
+![Demo-Astar-dij](assets/screenshots/maze_aStar_dij.gif)
+
+Moving the endPosition
+![Demo-end-Astar](./assets/screenshots/maze_end_astar.gif)
 
 ### Start Screen
 This is the initial interface with options to run different algorithms like A* and Dijkstra.
